@@ -1,0 +1,35 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="margin-left:auto;margin-right:auto;width:200px;">
+  <!-- <h1>
+    Welcome to Person API!
+  </h1>
+  <p> <button type="button" (click)="getPersons($event)">Click get all persons</button> </p>
+  <h2>All the persons: </h2>
+  <ul *ngIf="persons.length>0">
+    <li *ngFor="let person of persons" > <h2>{{person.name}}</h2> </li>
+  </ul>
+  <p> <input type="text" (keyup)="getPersonOnkeyUp($event)"> </p>
+  <p> <button type="button" (click)="getPerson()">Click get single person</button> </p>
+  <h2>Info of Person: </h2>
+  <ul *ngIf="person.length>0">
+    <li *ngFor="let p of person"> <h2>{{p.name}}</h2> </li>
+  </ul> -->
+  <div style='border:solid 1px black'>
+    <h1>New Person</h1>
+    <form (submit)="createPerson()">
+      <p> <input type="text" name="personForm.name" [(ngModel)]="personForm.name"> </p>
+      {{personForm|json}}
+      <input type="submit" value="create">
+    </form>
+  </div>
+  <div style='border:solid 1px black'>
+    <h1>Person List</h1>
+    <p *ngFor="let p of persons">{{p.name}} <button type="button" (click)="showEdit(p._id)">edit</button><button type="button" (click)="deletePerson(p._id)">delete</button> </p>
+  </div>
+  <div *ngIf="showEditView" style='border:solid 1px black'>
+    <form (submit)="updatePerson()">
+      Name:<input type="text" [(ngModel)]="editPerson.name" name="editPerson.name"/>
+      <input type="submit"value="update">
+    </form>
+  </div>
+</div>

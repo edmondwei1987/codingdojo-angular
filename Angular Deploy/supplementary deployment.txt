@@ -1,0 +1,53 @@
+Supplementary Deployment Notes for MEAN
+Coding Dojo Burbank - December 2017 (Angular 5)
+
+Setting up the git repository:
+
+Go into the angular app directory
+Delete the .git repo automatically created in the angular cli
+Remove the line "/dist" from the .gitignore file to make sure the /dist directory gets sent up to your remote repository.
+Go to the project root "cd .."
+Create another .gitignore file in the project root and add “/node_modules”(always) and “.DS_Store”(Mac only) to the file.
+git init, git add, as usual
+
+If you happen to miss the above steps:
+
+in ubuntu:
+Go to the angular app directory
+sudo npm install @angular/cli -g
+if the terminal starts endlessly looping control+c will stop it. Run the command again and it should work
+sudo npm install
+sudo ng build
+The dist directory should be created for you to use.
+
+If installing the bcrypt module causes an error when running sudo npm install:
+sudo chown -R ubuntu /home/ubuntu/.config
+npm install
+Note there is no ‘sudo’ here!
+
+
+Setting up mongodb:
+
+If you run sudo service mongod start, then it will create a service that will interfere with the pm2 mongod because they need the same port. EDIT: After changes to the platform, you do not need to create mongod through pm2 anymore. Simply following the directions on the platform and creating a mongod service will work fine!
+To properly check if mongod is working, just run "sudo mongod" ONLY
+If you get an error (you likely will):
+If it seems like your mongodb instance is not running, run sudo service mongod status. If there are errors related to permissions over /data/db:
+sudo mkdir /data
+sudo mkdir /data/db
+sudo chown -R ubuntu /data
+sudo chown -R ubuntu /data/db (to allow the non-superuser pm2 mongod access to the directory)
+
+To check pm2 processes to make sure they are good to go:
+sudo pm2 status
+
+
+
+
+To look at error messages of mongod or server.js:
+sudo pm2 show <id of your mongod process, usually 1>
+vim {{directory_referenced_in_output_log_directory}}
+
+If you make any changes to local files in the node server:
+sudo pm2 restart <id of your server process, usually 0>
+sudo service nginx reload && sudo service nginx restart
+
